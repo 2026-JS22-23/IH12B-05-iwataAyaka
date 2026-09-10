@@ -1,0 +1,82 @@
+[{
+    "id": 1,
+    "name": "池田屋跡",
+    "category": "新選組",
+    "lat":35.0054,
+    "lng":135.7681,
+    "image": "image/ikedaya.jpg",
+    "description": "池田屋事件の舞台となった場所。",
+    "period": "幕末",
+    "relatedPerson": "近藤勇",
+    "year": "1864",
+    "website": "https://ja.kyoto.travel/tourism/single01.php?category_id=8&tourism_id=853"
+},{
+    "id": 2,
+    "name": "八木家住宅（八木邸）",
+    "category": "新選組",
+    "lat":35.0002,
+    "lng":135.7486,
+    "image": "image/yagitei.jpg",
+    "description": "新選組が結成された当初、活動拠点としていた場所で、芹沢鴨暗殺事件の舞台となった。",
+    "period": "幕末",
+    "relatedPerson": "芹沢鴨",
+    "year": "1864",
+    "website": "https://www.mibu-yagike.jp/"
+},{
+    "id": 3,
+    "name": "旧前川邸",
+    "category": "新選組",
+    "lat":35.002414,
+    "lng":135.744553,
+    "image": "image/maekawa.jpg",
+    "description": "新選組が八木邸を屯所としていたのち、より広い拠点が必要となり移った場所。",
+    "period": "幕末",
+    "relatedPerson": "なし",
+    "year": "1864",
+    "website": "https://kyu-maekawatei.com/"
+},{
+    "id": 4,
+    "name": "西本願寺",
+    "category": "新選組",
+    "lat": 34.9917,
+    "lng": 135.7517,
+    "image": "image/nisihonngannzi.jpg",
+    "description": "新選組が屯所を移した場所。",
+    "relatedPerson": "近藤勇",
+    "year": "1865",
+    "website":"https://www.hongwanji.kyoto/visit/"
+},{
+    "id": 5,
+    "name": "島原大門",
+    "category": "新選組",
+    "lat":34.992982,
+    "lng":135.745084,
+    "image": "image/simabara.jpg",
+    "description": "「島原」は江戸時代に京都の公許遊郭として栄えた場所で、格式高い花街として知られていた場所。",
+    "period": "幕末",
+    "relatedPerson": "なし",
+    "year": "1864",
+    "website": "https://ja.kyoto.travel/tourism/single01.php?category_id=8&tourism_id=871"
+},{
+    "id": 6,
+    "name": "三条大橋",
+    "category": "新選組",
+    "lat": 35.0074,
+    "lng": 135.7708,
+    "image": "image/sannsyou.jpg",
+    "description": "新選組隊士が巡察した京都の要所。",
+    "relatedPerson": "沖田総司",
+    "year": "1864",
+    "website": "https://ja.kyoto.travel/tourism/single02.php?category_id=9&tourism_id=173"
+},{
+    "id": 7,
+    "name": "八坂神社",
+    "category": "幕末京都",
+    "lat": 35.0037,
+    "lng": 135.7788,
+    "image": "image/yasaka.jpg",
+    "description": "祇園の中心に位置する京都の名所。",
+    "relatedPerson": "なし",
+    "year": "1864",
+    "website": "https://www.yasaka-jinja.or.jp/"
+}]

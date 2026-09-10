@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Simple Marker 新選組聖地巡礼</title>
+    <!-- The callback parameter is required, so we use console.debug as a noop -->
+    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCAKLjisxFelKwIl1_G6MiEO9-ya7Twr5s&callback=initMap&libraries=maps,marker&v=beta">
+    </script>
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+
+      /* Optional: Makes the sample page fill the window. */
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        display: flex;
+      }
+      #sidebar {
+        width: 300px;
+        padding: 10px;
+        background-color: #f5f0e8;
+        overflow-y: auto;
+      }
+      #map {
+        flex: 1;
+      }
+    </style>
+    <script>
+      //地図を作る　APIをこれで呼び出す
+      function initMap() {
+        //フィルター機能で使うための配列
+        const markers = [];
+        const cards = [];
+        console.log("initMap開始");
+        //地図の初期化
+        const map = new google.maps.Map(document.getElementById("map"), {
+          //京都付近に中心を設定
+          center: { lat: 35.0116, lng: 135.7681 },
+          //拡大率
+          zoom: 12,
+        });
+
+        fetch('./地元.json')
+          .then(response => response.json())
+          .then(data => {
+            console.log(data);
+            console.log("地元データ取得完了");
+              data.forEach(spot => {
+                console.log(spot.name);
+                
+                //情報ウィンドウを作成　文字列を取得
+                const content = `
+                <div class="info-window">
+                  <img src="${spot.image}" alt="${spot.name}" width="200">
+                  ${spot.name}
+                  <h3>${spot.name}</h3>
+                  <p>${spot.description}</p>
+                  <table>
+                    <tr>
+                      <th>関連人物</th>
+                      <td>${spot.relatedPerson}</td>
+                    </tr>
+                    <tr>
+                      <th>年代</th>
+                      <td>${spot.year}</td>
+                    </tr>
+                    <tr>
+                      <th>公式サイト</th>
+                      <td>
+                        <a href="${spot.website}" target="_blank">
+                          詳細を見る
+                        </a>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+                `;
+                console.log(content);
+                console.log(spot.lat);
+                console.log(spot.lng);
+
+                //ピンを作成
+                const marker = new google.maps.Marker({
+                    position: {
+                        lat: spot.lat,
+                        lng: spot.lng
+                    },
+                    map: map,
+                    title: spot.name
+                });
+                //フィルター用の配列へ保存
+                markers.push({
+                marker: marker,
+                year: spot.year
+                });
+
+                //吹き出しそのものを作成
+                const infoWindow = new google.maps.InfoWindow({
+                    content: content
+                });
+                
+                //ピンクリックしたときの吹き出し
+                marker.addListener("click", () => {
+                    infoWindow.open({
+                        anchor: marker,
+                        map
+                    });
+                });
+
+                //一覧表示<div id="spotList"></div>これを取得
+
+                const list = document.getElementById("spotList");
+
+                //クリック移動 
+                const card = document.createElement("div");
+
+                card.innerHTML = `
+                <h3>${spot.name}</h3>
+                <p>${spot.description}</p>
+                `;
+
+                card.addEventListener("click", () => {
+
+                    map.setCenter({
+                        lat: spot.lat,
+                        lng: spot.lng
+                    });
+
+                    map.setZoom(16);
+
+                    infoWindow.open({
+                    anchor: marker,
+                    map
+                    });
+
+                });
+
+                list.appendChild(card);
+                cards.push({
+                    card: card,
+                    year: spot.year
+                });
+              });
+              document
+              .getElementById("yearFilter")
+              .addEventListener("change", function () {
+
+                  const selectedYear = this.value;
+
+                  markers.forEach(item => {
+
+                      if (
+                          selectedYear === "all" ||
+                          item.year === selectedYear
+                      ) {
+                          item.marker.setMap(map);
+                      } else {
+                          item.marker.setMap(null);
+                      }
+
+                  });
+
+                  cards.forEach(item => {
+
+                      if (
+                          selectedYear === "all" ||
+                          item.year === selectedYear
+                      ) {
+                          item.card.style.display = "block";
+                      } else {
+                          item.card.style.display = "none";
+                      }
+
+                  });
+
+              });              
+            });
+        
+      }
+
+    </script>
+  </head>
+  <body>
+
+    <div id="sidebar">
+      <h1>新選組聖地巡礼</h1>
+      <select id="yearFilter">
+          <option value="all">すべて</option>
+          <option value="1864">1864年</option>
+          <option value="1865">1865年</option>
+      </select>
+      <div id="spotList">
+      </div>
+    </div>
+    <!-- <gmp-map center="40.12150192260742,-100.45039367675781" zoom="4" map-id="DEMO_MAP_ID">
+      <gmp-advanced-marker position="40.12150192260742,-100.45039367675781" title="My location"></gmp-advanced-marker>
+    </gmp-map> -->
+    <div id="map"></div>
+  </body>
+</html>
